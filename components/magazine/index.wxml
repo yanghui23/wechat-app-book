@@ -1,0 +1,8 @@
+
+<view>
+  <text>No.</text>
+  <text>{{ index }}</text>
+  <text>|</text>
+  <text>{{ month }}</text>
+  <text>{{ year }}</text>
+</view>

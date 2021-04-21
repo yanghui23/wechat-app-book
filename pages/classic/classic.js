@@ -1,18 +1,37 @@
 // pages/classic/classic.js
+
+import { ClassicModel } from '../../models/classic'
+import { LikeModel } from '../../models/like'
+
+let classicModel = new ClassicModel()
+let likeModel = new LikeModel()
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    classicData: null
+  },
+
+  onLike: function(event) {
+    let behavior = event.detail.behavior
+    let artId = this.data.classicData.id
+    let category = this.data.classicData.type
+    likeModel.like(behavior, artId, category)
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    classicModel.getLatest((res) => {
+      // 数据更新
+      this.setData({
+        classicData: res.data
+      })
+    })
   },
 
   /**

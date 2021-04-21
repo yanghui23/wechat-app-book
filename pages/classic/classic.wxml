@@ -1,4 +1,6 @@
 <!--pages/classic/classic.wxml-->
 <view>
-  <v-like></v-like>
+  <v-magazine index="{{ classicData.index }}"></v-magazine>
+  <v-like like="{{ classicData.like_status }}" count="{{ classicData.fav_nums }}" bind:like="onLike"></v-like>
+  <v-movie img="{{ classicData.image }}" content="{{ classicData.content }}"></v-movie>
 </view>
