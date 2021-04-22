@@ -12,14 +12,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-    classicData: null
+    classicData: null,
+    latest: true,
+    first: false
   },
 
+  // 响应like组件传递的事件
   onLike: function(event) {
     let behavior = event.detail.behavior
     let artId = this.data.classicData.id
     let category = this.data.classicData.type
     likeModel.like(behavior, artId, category)
+  },
+
+  // 响应navi组件传递的事件
+  // 上一期
+  onPrevious: function(e) {
+    this._updateClassic('previous')
+  },
+  // 下一期
+  onNext: function(e) {
+    this._updateClassic('next')
+  },
+  // 提取上面两个函数的共同部分
+  _updateClassic: function(nextOrPrevious) {
+    let index = this.data.classicData.index
+    classicModel.getClassic(index, nextOrPrevious, (res) => {
+      this.setData({
+        classicData: res.data,
+        latest: classicModel.isLatest(res.data.index),
+        first: classicModel.isFirst(res.data.index)
+      })
+    })
   },
 
   /**

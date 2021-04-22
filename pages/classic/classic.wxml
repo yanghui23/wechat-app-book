@@ -1,6 +1,13 @@
 <!--pages/classic/classic.wxml-->
-<view>
-  <v-magazine index="{{ classicData.index }}"></v-magazine>
-  <v-like like="{{ classicData.like_status }}" count="{{ classicData.fav_nums }}" bind:like="onLike"></v-like>
+<view class="container">
+
+  <view class="header">
+    <v-magazine class="magazine" index="{{ classicData.index }}"></v-magazine>
+    <v-like class="like" like="{{ classicData.like_status }}" count="{{ classicData.fav_nums }}" bind:like="onLike"></v-like>
+  </view>
+
   <v-movie img="{{ classicData.image }}" content="{{ classicData.content }}"></v-movie>
+
+  <v-navi class="navi" title="{{ classicData.title }}" first="{{ first }}" latest="{{ latest }}" bind:left="onNext" bind:right="onPrevious"></v-navi>
+
 </view>

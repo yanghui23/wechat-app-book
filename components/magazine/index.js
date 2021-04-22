@@ -4,15 +4,26 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    index: Number
+    index: {
+      type: String,
+      // 不要在observe函数中修改属性中的值，会导致无限递归，堆栈溢出
+      observer: function(newVal, oldVal, cahngePath) {
+        let value = newVal < 10 ? '0' + newVal : newVal
+        this.setData({
+          _index: value
+        })
+      }
+    }
   },
 
   /**
    * 组件的初始数据
    */
   data: {
+    _index: '',
     year: 0,
-    month: ''
+    month: '',
+    months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
   },
 
   /**
@@ -32,6 +43,13 @@ Component({
 
     attached: function() {
       // 在组件实例进入页面节点树时执行
+      let year = new Date().getFullYear()
+      let month = new Date().getMonth()
+
+      this.setData({
+        year: year,
+        month: this.data.months[month]
+      })
     },
 
     ready: function() {
